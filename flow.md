@@ -17,7 +17,7 @@ else normal flow
 check if batch is null
 if not set batckId, processStartTime and channel to BatchmetaData
 
-## data validation 
+## data validation : DV check
 ### a. manadatory check | isBlank fail
 - BE
 - BU
@@ -59,15 +59,63 @@ if not set batckId, processStartTime and channel to BatchmetaData
 if a,b,c success then DV success
 
 > if dv is success then only go fo ds
-## data standardization
-### db init
+## data standardization : DS check
+### a. db init
 - using typeId find temoplate
-- from template get and find from db
+- from template getIds and find from db and set to variables of class
 - category from categoryId
 - BE from BEId
 - BU from BUId
 - SS from SSId
 - locatons from locationIds
 
-### stardardize
+### b. stardardize
+- only for these values from request check
+    - BE
+    - BU
+    - SS
+    - locations
+    - category/preferenceValue
+        - channelName
+        - OptionName
+        - optionValue 
+  - is same as that from db, that we already set in db init
+  - if not DS is failed 
 
+## save rawPreference
+### a. mdmCheck
+- check if mdmCallRequired
+- if mdmId IS-BLANK
+    - check if cacheIsApplicable
+    - if yes using key find mdmId
+    - if mdmId is not blank from cache then set in request
+    - return false
+- else (mdmId not blank)
+    - callRequired = false
+    - add mdmId to cache
+    - add MDM_SKIPPED to validationStatus
+- if call required, pass mdmSourceSystemName & SourceSystemPersonId to mdm cross walk api and get mdmId
+- if response empty mark MDM_FAILED
+- if response !empty
+    -  if epms set SSPID and MDMID
+    -  for normal set MDMID
+- add mdmId to cache
+
+### save raw preference
+- finalRawPreferenceToBeSaved isNull && empsRecord
+    - publish to errorTopic skip ingestion log saving & continue with other records
+- finalRawPreferenceToBeSaved isNotNull && finalRawPreferenceToBeSaved.getMmdId isNotNull
+    - save to rawPreference 
+- save in ingestionLog if
+    - finalRawPreferenceToBeSaved == null && not epms
+    - finalRawPreferenceToBeSaved notNull && null mdmId
+
+- mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class) & SourceSystemPersonId(from ingestion request)
+
+
+
+if record is KAFKA_HISTORICAL || KAFKA_HISTORICAL_EPMS
+then cacheIsApplicaple
+
+if epmsRecord : key = ss + sdrPersonId
+if normal : key = ss + sourceSystemPersonId
