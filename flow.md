@@ -45,3 +45,24 @@ flowchart TD
 
     M --> D[Step D]
 ```
+```mermaid
+flowchart TD
+    A["Step A:\n- Load data\n- Validate input"] --> 
+    B["Step B:\n- Parse request\n- Setup context"] -->
+
+    C["Step C:\n- Prepare async tasks\n- Create resources"] 
+
+    %% Async tasks with points inside
+    C -->|Async 1| T1["Task 1:\n- Fetch API\n- Transform"]
+    C -->|Async 2| T2["Task 2:\n- Read file\n- Filter rows"]
+    C -->|Async 3| T3["Task 3:\n- Query DB\n- Map results"]
+    C -->|Async 4| T4["Task 4:\n- Compute hash\n- Store output"]
+
+    %% Merge
+    T1 --> M["Merge:\n- Wait for all tasks\n- Aggregate results"]
+    T2 --> M
+    T3 --> M
+    T4 --> M
+
+    M --> D["Step D:\n- Finalize\n- Return response"]
+```
