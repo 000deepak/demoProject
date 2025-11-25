@@ -26,3 +26,22 @@ flowchart TD
     F --> H
     G --> H
 ```
+```mermaid
+flowchart TD
+    A[Step A] --> B[Step B]
+    B --> C[Step C]
+
+    %% Four asynchronous tasks branching from C
+    C -->|Async 1| T1[Task 1]
+    C -->|Async 2| T2[Task 2]
+    C -->|Async 3| T3[Task 3]
+    C -->|Async 4| T4[Task 4]
+
+    %% Optional: synchronize before D
+    T1 --> M[Merge]
+    T2 --> M
+    T3 --> M
+    T4 --> M
+
+    M --> D[Step D]
+```
