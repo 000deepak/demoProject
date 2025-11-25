@@ -83,7 +83,15 @@ if a,b,c success then DV success
   - if not DS is failed 
 
 ## save rawPreference
-### a. mdmCheck
+## a. prepare finalRawPreference
+- if DS success
+    - do MDM check
+    - if mdm success set mdmId for epms or normal and prepare finalRawPreference with fetched mdmId from mdm
+    - if failed publish epms error to topic
+- if DS failed
+    - prepare finalRawPreference with incoming MdmId
+      
+### b. mdmCheck
 - check if mdmCallRequired
 - if mdmId IS-BLANK
     - check if cacheIsApplicable
@@ -101,7 +109,7 @@ if a,b,c success then DV success
     -  for normal set MDMID
 - add mdmId to cache
 
-### save raw preference
+### c. save raw preference
 - finalRawPreferenceToBeSaved isNull && empsRecord
     - publish to errorTopic skip ingestion log saving & continue with other records
 - finalRawPreferenceToBeSaved isNotNull && finalRawPreferenceToBeSaved.getMmdId isNotNull
@@ -109,13 +117,13 @@ if a,b,c success then DV success
 - save in ingestionLog if
     - finalRawPreferenceToBeSaved == null && not epms
     - finalRawPreferenceToBeSaved notNull && null mdmId
-
-- mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class) & SourceSystemPersonId(from ingestion request)
-
-
+### extra info
+```
+mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class) & SourceSystemPersonId(from ingestion request)
 
 if record is KAFKA_HISTORICAL || KAFKA_HISTORICAL_EPMS
 then cacheIsApplicaple
 
 if epmsRecord : key = ss + sdrPersonId
 if normal : key = ss + sourceSystemPersonId
+```
