@@ -1,7 +1,7 @@
 - request received
 - mdmId is -99 and not blanck -> set as ""
 
-## cds check
+## 2. cds check
 - if sourcesSystem is ATHENA && isEpmsRecord
     - get requestJson
     - get configJson
@@ -11,7 +11,7 @@
 - check if batch is null
     - if not set batckId, processStartTime and channel to BatchmetaData
 
-## data validation : DV check
+## 3. data validation : DV check
 ### a. manadatory check | isBlank fail
 - BE
 - BU
@@ -53,7 +53,7 @@
 > if a,b,c success then DV success
 > if dv is success then only go fo ds
 
-## data standardization : DS check
+## 4. data standardization : DS check
 ### a. db init
 - using typeId find temoplate
 - from template getIds and find from db and set to variables of class
@@ -76,8 +76,8 @@
   - is same as that from db, that we already set in db init
   - if not DS is failed 
 
-## save rawPreference
-## a. prepare finalRawPreference
+## 5. save rawPreference
+### a. prepare finalRawPreference
 - if DS success
     - do MDM check
     - if mdm success set mdmId for epms or normal and prepare finalRawPreference with fetched mdmId from mdm
