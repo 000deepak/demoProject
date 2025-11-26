@@ -39,6 +39,8 @@ preferences collection have unique records based on
   - modifiedTimeStamp
   - auditAction create
 
+
+> helper methods
 ### validateBusinessRule()
 - fetch rule from db using templateType,templateName,ruleType
 - rule empty
