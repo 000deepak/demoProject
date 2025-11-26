@@ -44,14 +44,45 @@ preferences collection have unique records based on
 - get cirteria
 - get ingestionRuleLevel
 - getLatest rawConsent using criteria from all raw consents that were fetched earlier
+- get consent using mdmId and templateName(from rule, rule.getTemplateName)
+- if `consent is present pass it to consolidation for updation(UPDATE)`
+- `if not create new one and pass to consolidation, will create new record(CREATE)`
 - for each ruleLevel perform consolidation, pass latest rawConsent according to criteria, consent, ruleLevel, criteria
 - *performConsolidation
 - *setLastUpdatedAndAllSourceSystems
 - save consent
 
   ## *performConsolidation(latest rawConsent according to criteria, consent, ruleLevel, criteria)
-  - 
+  - get parameter from ingestionRuleLevel
+  - get values
+  - findConsentData*
+  - if ConsentData present(if consent is not present in DB for a given whil fetching using mdmId and templateName(from rule, rule.getTemplateName))
+    - *processExistingConsentData 
+  - else *processNewConsentData(new consent record will get created)
 
+## processExistingConsentData
+- getConsentDateTIme()
+- getRawConsentDateTime()
+- if rawConsentDateTime > consentDateTIme(raw consent data has latest date than already consolidated consent)
+  - updateConsent()
+
+## getConsentDateTIme()
+- if criteria effective date return startTimeStamp
+- else return submittedTimeStamp
+
+## getRawConsentDateTime()
+- if criteria effective date return startTimeStamp
+- else return submittedTimeStamp
+
+## processNewConsentData()
+- if isMatchingParameter() then
+  - buildNewConsents and add to consent to save
+
+## isMatchingParameter()
+- there are only 3 parameters while creating rule(BE, BU, SS)
+- if parameter is equal to BE, check rawConsent BE is matching value(from rule) then return true
+- check same for BU && SS
+- else false
 
 > helper methods
 ### validateBusinessRule()
@@ -67,4 +98,19 @@ preferences collection have unique records based on
 ```
 receivedDate = submittedTimeStamp
 effectiveDate = startTimeStamp
+```
+
+## rule info
+```
+each template has single or multiple rules, if yes how consolidation will happen??
+what is level?
+
+suppose rule is
+"BusinessEntity" Equals to "Centerwell" criteria "Effective Date"
+
+*in code
+BusinessEntity - parameter
+Equals to - operator
+Centerwell - value
+Effective Date - criterial
 ```
