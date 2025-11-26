@@ -84,12 +84,12 @@
         - check isMdmCheckSuccessForNormal
     - isMdmSuccess
         - true 
-            - prepare finalRawPreference with fetched mdmId from mdm
+            - prepare `finalRawPreference with fetched mdmId from mdm`
        - false
-           - return finalRawPreference as null
+           - return `finalRawPreference as null`
            - if isEpmsRecordPublish epms error to topic
 - if DS failed
-    - prepare finalRawPreference with ingeationRequest
+    - `prepare finalRawPreference with ingeationRequest data`
     - mark MDMSKipped in validationStatus
       
 ### b. verifyAndMdmCheck
@@ -97,7 +97,16 @@
 - do *mdmCheck
 - add mdmId to chache
 
-### b.1 checkMdmCallRequired()
+### c. save raw preference
+- finalRawPreferenceToBeSaved isNull && empsRecord (isMdmSuccess false and isEpmsRecord)
+    - publish to errorTopic skip ingestion log saving & continue with other records
+- finalRawPreferenceToBeSaved isNotNull && finalRawPreferenceToBeSaved.getMmdId isNotNull
+    - save to rawPreference 
+- save in ingestionLog if
+    - finalRawPreferenceToBeSaved == null && not epms (isMdmSuccess false and !isEpmsRecord)
+    - finalRawPreferenceToBeSaved notNull && null mdmId
+
+ ### b.1 checkMdmCallRequired()
 - if mdmId IS-BLANK
   - check if cacheIsApplicable
   - if yes using key find mdmId
@@ -117,16 +126,6 @@
 - if response !empty
     -  if epms set SSPID and MDMID
     -  for normal set MDMID
-
-### c. save raw preference
-- finalRawPreferenceToBeSaved isNull && empsRecord
-    - publish to errorTopic skip ingestion log saving & continue with other records
-- finalRawPreferenceToBeSaved isNotNull && finalRawPreferenceToBeSaved.getMmdId isNotNull
-    - save to rawPreference 
-- save in ingestionLog if
-    - finalRawPreferenceToBeSaved == null && not epms
-    - finalRawPreferenceToBeSaved notNull && null mdmId
- 
 
 ### extra info
 ```
