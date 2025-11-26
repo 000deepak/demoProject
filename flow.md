@@ -92,12 +92,12 @@
     - prepare finalRawPreference with ingeationRequest
     - mark MDMSKipped in validationStatus
       
-### b. mdmCheck
-- verifyAndMdmCheck()
-    - check if *checkMdmCallRequired
-    - do *mdmCheck
-    - add mdmId to chache
--  checkMdmCallRequired()
+### b. verifyAndMdmCheck
+- check if *checkMdmCallRequired
+- do *mdmCheck
+- add mdmId to chache
+
+### b.1 checkMdmCallRequired()
     - if mdmId IS-BLANK
         - check if cacheIsApplicable
         - if yes using key find mdmId
@@ -110,7 +110,7 @@
         - `return false`
     - mdmId is BLANK && `cache is not applicable` THEN MDM CALLL REQUIRED
         - `return true`
-- mdmCheck()
+### b.2 mdmCheck()
 - if call required, pass `mdmSourceSystemName & SourceSystemPersonId` to mdm cross walk api and get mdmId
 - if response empty mark MDM_FAILED
 - if response !empty
