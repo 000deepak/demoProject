@@ -39,6 +39,19 @@ preferences collection have unique records based on
   - modifiedTimeStamp
   - auditAction create
 
+## asd
+- loop criteriaAndLevelMap
+- get cirteria
+- get ingestionRuleLevel
+- getLatest rawConsent using criteria from all raw consents that were fetched earlier
+- for each ruleLevel perform consolidation, pass latest rawConsent according to criteria, consent, ruleLevel, criteria
+- *performConsolidation
+- *setLastUpdatedAndAllSourceSystems
+- save consent
+
+  ## *performConsolidation(latest rawConsent according to criteria, consent, ruleLevel, criteria)
+  - 
+
 
 > helper methods
 ### validateBusinessRule()
