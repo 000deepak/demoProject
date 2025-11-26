@@ -35,19 +35,19 @@ preferences collection have unique records based on
 - getLatest rawConsent using criteria from all raw consents that were fetched earlier
 - get consent using mdmId and templateName(from rule, rule.getTemplateName)
 - if `consent is present pass it to consolidation for updation(UPDATE)`
-- `if not create new one and pass to consolidation, will create new record(CREATE)`
+- else `if not create new one and pass to consolidation, will create new record(CREATE)`
 - for each ruleLevel perform consolidation, pass latest rawConsent according to criteria, consent, ruleLevel, criteria
 - *performConsolidation
 - *setLastUpdatedAndAllSourceSystems
 - save consent
 
-  ## *performConsolidation(latest rawConsent according to criteria, consent, ruleLevel, criteria)
-  - get parameter from ingestionRuleLevel
-  - get values
-  - findConsentData*
-  - if ConsentData present(if consent is not present in DB for a given whil fetching using mdmId and templateName(from rule, rule.getTemplateName))
-    - *processExistingConsentData 
-  - else *processNewConsentData(new consent record will get created)
+## *performConsolidation(latest rawConsent according to criteria, consent, ruleLevel, criteria)
+- get parameter from ingestionRuleLevel
+- get values
+- findConsentData*
+- if ConsentData present(if consent is not present in DB for a given whil fetching using mdmId and templateName(from rule, rule.getTemplateName))
+  - *processExistingConsentData 
+- else *processNewConsentData(new consent record will get created)
 
 ## processExistingConsentData
 - getConsentDateTIme()
