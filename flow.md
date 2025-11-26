@@ -1,9 +1,5 @@
-request received
-mdmId is -99 and not blanck -> set as ""
-
-for epms record 
-sourceSystem should be EPOSTRX
-sdrPersonId should be !empty
+- request received
+- mdmId is -99 and not blanck -> set as ""
 
 ## 2.cds check
 if sourcesSystem is ATHENA && is epms record
@@ -117,6 +113,8 @@ if a,b,c success then DV success
 - save in ingestionLog if
     - finalRawPreferenceToBeSaved == null && not epms
     - finalRawPreferenceToBeSaved notNull && null mdmId
+ 
+
 ### extra info
 ```
 mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class) & SourceSystemPersonId(from ingestion request)
@@ -126,4 +124,8 @@ then cacheIsApplicaple
 
 if epmsRecord : key = ss + sdrPersonId
 if normal : key = ss + sourceSystemPersonId
+
+- for epms record 
+    - sourceSystem should be EPOSTRX
+    - sdrPersonId should be !empty
 ```
