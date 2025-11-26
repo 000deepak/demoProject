@@ -12,3 +12,5 @@
 - for all rawPreferences set the new mdmId and save
 - publish rawPreference
 - process audit
+
+## consolidatePreference
