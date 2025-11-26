@@ -78,29 +78,44 @@
 ## 5. save rawPreference
 ### a. prepare finalRawPreference
 - if DS success
-    - do MDM check
-    - if mdm success set mdmId for epms or normal and prepare finalRawPreference with fetched mdmId from mdm
-    - if failed publish epms error to topic
+    - verifyAndMdmCheck()
+    - evaluate isMdmSuccess 
+        - check isMdmCheckSuccessForEPMS
+        - check isMdmCheckSuccessForNormal
+    - isMdmSuccess
+        - true 
+            - prepare finalRawPreference with fetched mdmId from mdm
+       - false
+           - return finalRawPreference as null
+           - if isEpmsRecordPublish epms error to topic
 - if DS failed
-    - prepare finalRawPreference with incoming MdmId
+    - prepare finalRawPreference with ingeationRequest
+    - mark MDMSKipped in validationStatus
       
 ### b. mdmCheck
-- check if mdmCallRequired
-- if mdmId IS-BLANK
-    - check if cacheIsApplicable
-    - if yes using key find mdmId
-    - if mdmId is not blank from cache then set in request
-    - return false
-- else (mdmId not blank)
-    - callRequired = false
-    - add mdmId to cache
-    - add MDM_SKIPPED to validationStatus
-- if call required, pass mdmSourceSystemName & SourceSystemPersonId to mdm cross walk api and get mdmId
+- verifyAndMdmCheck()
+    - check if *checkMdmCallRequired
+    - do *mdmCheck
+    - add mdmId to chache
+-  checkMdmCallRequired()
+    - if mdmId IS-BLANK
+        - check if cacheIsApplicable
+        - if yes using key find mdmId
+        - if mdmId is not blank from cache then set in request
+        - `return false`(mdm call not required)
+    - else (mdmId not blank)
+        - callRequired = false
+        - add mdmId to cache
+        - add MDM_SKIPPED to validationStatus
+        - `return false`
+    - mdmId is BLANK && `cache is not applicable` THEN MDM CALLL REQUIRED
+        - `return true`
+- mdmCheck()
+- if call required, pass `mdmSourceSystemName & SourceSystemPersonId` to mdm cross walk api and get mdmId
 - if response empty mark MDM_FAILED
 - if response !empty
     -  if epms set SSPID and MDMID
     -  for normal set MDMID
-- add mdmId to cache
 
 ### c. save raw preference
 - finalRawPreferenceToBeSaved isNull && empsRecord
