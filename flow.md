@@ -1,17 +1,15 @@
 - request received
 - mdmId is -99 and not blanck -> set as ""
 
-## 2.cds check
-if sourcesSystem is ATHENA && is epms record
-get requestJson
-get configJson
-duplicateCheck
-
-cdsCheck true then continue
-else normal flow
-
-check if batch is null
-if not set batckId, processStartTime and channel to BatchmetaData
+## cds check
+- if sourcesSystem is ATHENA && isEpmsRecord
+    - get requestJson
+    - get configJson
+    - duplicateCheck
+- cdsCheck true then continue
+    - else normal flow
+- check if batch is null
+    - if not set batckId, processStartTime and channel to BatchmetaData
 
 ## data validation : DV check
 ### a. manadatory check | isBlank fail
