@@ -26,20 +26,9 @@
 ```
 preferences collection have unique records based on
 - mdmId
-- templateName
+- typeId
 ```
-- get criteriaAndLevelMap from rule
-- fetch old pref from db
-- if pref !empty
-  - set auditAction update
-  - set modifiedTimeStamp
-  - setModifiedBySystem
-- pref empty
-  - create new pref with given mdmId
-  - modifiedTimeStamp
-  - auditAction create
-
-## asd
+## consent consolidation
 - loop criteriaAndLevelMap
 - get cirteria
 - get ingestionRuleLevel
