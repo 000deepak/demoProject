@@ -46,4 +46,10 @@ preferences collection have unique records based on
   - create new rule with given templateType,templateName with default construct
 - rule !empty
   - set BR_validaton_sucess
-  - return the rule 
+  - return the rule
+
+ ## extra info
+```
+receivedDate = submittedTimeStamp
+effectiveDate = startTimeStamp
+```
