@@ -24,7 +24,7 @@
 - documentTpe
 - preferenceValue !empty
 
-### b. Option | isBlank set ""
+### b. Optional | isBlank set ""
 - mdmId
 - location
 - PN
