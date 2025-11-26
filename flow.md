@@ -129,7 +129,8 @@
 
 ### extra info
 ```
-mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class) & SourceSystemPersonId(from ingestion request)
+mdm stores mdmId wrt to mdmSourceSystemName(one of the field from SourceSystem POJO class)
+&& SourceSystemPersonId(from ingestion request)
 
 if record is KAFKA_HISTORICAL || KAFKA_HISTORICAL_EPMS
 then cacheIsApplicaple
