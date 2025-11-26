@@ -98,18 +98,19 @@
 - add mdmId to chache
 
 ### b.1 checkMdmCallRequired()
-    - if mdmId IS-BLANK
-        - check if cacheIsApplicable
-        - if yes using key find mdmId
-        - if mdmId is not blank from cache then set in request
-        - `return false`(mdm call not required)
-    - else (mdmId not blank)
-        - callRequired = false
-        - add mdmId to cache
-        - add MDM_SKIPPED to validationStatus
-        - `return false`
-    - mdmId is BLANK && `cache is not applicable` THEN MDM CALLL REQUIRED
-        - `return true`
+- if mdmId IS-BLANK
+  - check if cacheIsApplicable
+  - if yes using key find mdmId
+  - if mdmId is not blank from cache then set in request
+  - `return false`(mdm call not required)
+- else (mdmId not blank)
+  - callRequired = false
+  - add mdmId to cache
+  - add MDM_SKIPPED to validationStatus
+  - `return false`
+- mdmId is BLANK && `cache is not applicable` THEN MDM CALLL REQUIRED
+  - `return true`
+
 ### b.2 mdmCheck()
 - if call required, pass `mdmSourceSystemName & SourceSystemPersonId` to mdm cross walk api and get mdmId
 - if response empty mark MDM_FAILED
