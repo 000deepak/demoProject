@@ -55,16 +55,16 @@
 
 ## 4. data standardization : DS check
 ### a. db init
-- using typeId find temoplate
-- from template getIds and find from db and set to variables of class
-- category from categoryId
-- BE from BEId
-- BU from BUId
-- SS from SSId
-- locatons from locationIds
+- using typeId fetch template from DB
+- from template get below Ids and find from db and set to variables of class
+    - category from categoryId
+    - BE from BEId
+    - BU from BUId
+    - SS from SSId
+    - locatons from locationIds
 
 ### b. stardardize
-- only for these values from request check
+- validate these values against DB that we already set on variables
     - BE
     - BU
     - SS
@@ -73,8 +73,7 @@
         - channelName
         - OptionName
         - optionValue 
-  - is same as that from db, that we already set in db init
-  - if not DS is failed 
+- if they are not same DS is failed 
 
 ## 5. save rawPreference
 ### a. prepare finalRawPreference
