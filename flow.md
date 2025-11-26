@@ -91,13 +91,8 @@
 - if DS failed
     - `prepare finalRawPreference with ingeationRequest data`
     - mark MDMSKipped in validationStatus
-      
-### b. verifyAndMdmCheck
-- check if *checkMdmCallRequired
-- do *mdmCheck
-- add mdmId to chache
 
-### c. save raw preference
+### b. save raw preference
 - finalRawPreferenceToBeSaved isNull && empsRecord (isMdmSuccess false and isEpmsRecord)
     - publish to errorTopic skip ingestion log saving & continue with other records
 - finalRawPreferenceToBeSaved isNotNull && finalRawPreferenceToBeSaved.getMmdId isNotNull
@@ -106,7 +101,12 @@
     - finalRawPreferenceToBeSaved == null && not epms (isMdmSuccess false and !isEpmsRecord)
     - finalRawPreferenceToBeSaved notNull && null mdmId
 
- ### b.1 checkMdmCallRequired()
+### m. verifyAndMdmCheck
+- check if *checkMdmCallRequired
+- do *mdmCheck
+- add mdmId to chache
+  
+ ### m.1 checkMdmCallRequired()
 - if mdmId IS-BLANK
   - check if cacheIsApplicable
   - if yes using key find mdmId
@@ -120,7 +120,7 @@
 - mdmId is BLANK && `cache is not applicable` THEN MDM CALLL REQUIRED
   - `return true`
 
-### b.2 mdmCheck()
+### m.2 mdmCheck()
 - if call required, pass `mdmSourceSystemName & SourceSystemPersonId` to mdm cross walk api and get mdmId
 - if response empty mark MDM_FAILED
 - if response !empty
