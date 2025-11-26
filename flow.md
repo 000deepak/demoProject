@@ -45,7 +45,7 @@
 - invalid hxadecimal fail
     - typeId
     - reftypeId
-- enum check | invalid string other than enum fail
+- ENUM check | invalid string other than ENUM fail
     - status
     - nature
     - sourceMethod
