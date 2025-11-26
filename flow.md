@@ -50,9 +50,9 @@
     - nature
     - sourceMethod
     - signInitial
-if a,b,c success then DV success
-
+> if a,b,c success then DV success
 > if dv is success then only go fo ds
+
 ## data standardization : DS check
 ### a. db init
 - using typeId find temoplate
